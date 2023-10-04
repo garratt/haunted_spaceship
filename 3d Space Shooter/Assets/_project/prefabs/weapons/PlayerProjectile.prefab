@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5431537632488067617}
   - component: {fileID: 2180402012114632322}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7193285325348713242}
   - component: {fileID: 6560869677144345826}
   - component: {fileID: -2242831835989082323}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 8521477749198998380}
   - component: {fileID: 2864937483986811375}
   - component: {fileID: 642948304268538313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

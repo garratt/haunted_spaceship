@@ -36,5 +36,10 @@ public class Projectile : MonoBehaviour
         if (collision.collider.name != "Collider1") {
         Instantiate(_explosionPreFab, transform.position, transform.rotation);
         }
+        IDamagable damagable = collision.collider.gameObject.GetComponent<IDamagable>();
+        if (damagable != null) {
+            Vector3 hitPosition = collision.GetContact(0).point;
+            damagable.TakeDamage(_damage, hitPosition);
+        }
     }
 }
