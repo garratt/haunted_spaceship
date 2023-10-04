@@ -1,0 +1,16 @@
+{
+    "name": "3dspaceshoter",
+    "rootNamespace": "",
+    "references": [
+        "GUID:194a5b7efaeb9c4dcba23fd71284e8b2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
