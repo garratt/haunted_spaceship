@@ -3398,6 +3398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2281f4c2a9f0b5bb5935e631bb17c0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _duration: 10
 --- !u!54 &1143532946915120791
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17371,11 +17372,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fbcd3b94efd41b3989038306f19c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementInput: {fileID: 1292328209331252848}
+  _inputControls: {fileID: 1292328209331252848}
   _thrustForce: 7500
   _pitchForce: 2399
   _yawForce: 2000
   _rollForce: 1000
+  _blasters:
+  - {fileID: 2421867205600743989}
+  - {fileID: 9071191015319997490}
 --- !u!1 &6907367073426837087
 GameObject:
   m_ObjectHideFlags: 0

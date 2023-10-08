@@ -10,19 +10,19 @@ public class DesktopMovementControls : MovementControlsBase
    public override float YawAmount {
         get
         {
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.D)) {
             return 1f;
         }
-        return Input.GetKey(KeyCode.D) ? -1f : 0f;
+        return Input.GetKey(KeyCode.A) ? -1f : 0f;
         }
     }
    public override float PitchAmount {
         get
         {
-        if (Input.GetKey(KeyCode.W)) {
+        if (Input.GetKey(KeyCode.S)) {
             return 1f;
         }
-        return Input.GetKey(KeyCode.S) ? -1f : 0f;
+        return Input.GetKey(KeyCode.W) ? -1f : 0f;
         }  
    }
    public override float RollAmount {

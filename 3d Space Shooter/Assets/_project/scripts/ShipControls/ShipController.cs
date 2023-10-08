@@ -6,30 +6,40 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
-    [SerializeField] [Required] ShipMovementInput _movementInput;
+    [SerializeField] [Required] ShipInputControls _inputControls;
 
     [BoxGroup("Ship Movement Values")][SerializeField] [Range(1000f, 10000f)]
     float _thrustForce = 7500f,
     _pitchForce = 6000f,
     _yawForce = 2000f,
     _rollForce = 1000f;
+
+    [BoxGroup("Ship Components")]    [SerializeField]
+     private List<Blaster> _blasters;
     
     Rigidbody _rigidbody;
     
     [ShowInInspector][Range(-1.0f,1.0f)]
     float _thrustAmount, _pitchAmount, _yawAmount, _rollAmount;
     
-    ImovementControls ControlInput => _movementInput.MovementControls;
+    ImovementControls MovementInput => _inputControls.MovementControls;
+    IWeaponControls WeaponInput => _inputControls.WeaponControls;
+
+    void Start() {
+        foreach (Blaster blaster in _blasters) {
+            blaster.Init(WeaponInput);
+        }
+    }
 
     void Awake() {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        _thrustAmount = ControlInput.ThrustAmount;
-        _pitchAmount = ControlInput.PitchAmount;
-        _rollAmount = ControlInput.RollAmount;
-        _yawAmount = ControlInput.YawAmount;
+        _thrustAmount = MovementInput.ThrustAmount;
+        _pitchAmount = MovementInput.PitchAmount;
+        _rollAmount = MovementInput.RollAmount;
+        _yawAmount = MovementInput.YawAmount;
     }
 
     void FixedUpdate() {

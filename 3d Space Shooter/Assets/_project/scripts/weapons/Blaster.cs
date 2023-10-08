@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -8,6 +9,8 @@ public class Blaster : MonoBehaviour
     [SerializeField] [Required] Projectile _projectilePrefab;
     [SerializeField] Transform _muzzle;
     [SerializeField] [Range(0f, 5f)] float _coolDownTime = .25f;
+
+    private IWeaponControls _weaponInput;
     
     bool CanFire {
         get {
@@ -30,7 +33,7 @@ public class Blaster : MonoBehaviour
         if (_coolDown > 0 ) {
             _coolDown -= Time.deltaTime;
         }
-        if (Input.GetMouseButton(0))
+        if (_weaponInput != null && _weaponInput.PrimaryFired)
         {
             FireProjectile();
         }
@@ -44,5 +47,10 @@ public class Blaster : MonoBehaviour
         }
         _coolDown = _coolDownTime;
         Instantiate(_projectilePrefab, _muzzle.position, transform.rotation);
+    }
+
+    internal void Init(IWeaponControls weaponInput)
+    {
+        _weaponInput = weaponInput;
     }
 }
