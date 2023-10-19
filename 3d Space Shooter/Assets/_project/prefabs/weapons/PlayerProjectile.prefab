@@ -124,7 +124,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8521477749198998380}
@@ -157,7 +157,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &7193285325348713242
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -298,8 +298,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosionPreFab: {fileID: 2542679909147366987, guid: 9b551552ea606a5949ea3fc3760132af, type: 3}
+  _impactSound: {fileID: 0}
   _launchForce: 10000
-  _damage: 100
+  _damage: 533
   _range: 5
 --- !u!1 &7745849333787424180
 GameObject:

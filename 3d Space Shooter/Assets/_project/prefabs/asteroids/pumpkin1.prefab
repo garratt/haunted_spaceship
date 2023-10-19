@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4338709973150673392}
   - component: {fileID: 6406292692732926664}
   - component: {fileID: 1779073768169957477}
+  - component: {fileID: -4662164921430000472}
   m_Layer: 0
   m_Name: pumpkin1
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-4662164921430000472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025504547556744403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470b0166a13f7abdb99c47146c773fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fracturedAsteroidPrefab: {fileID: 0}
+  _explosionPrefab: {fileID: 0}

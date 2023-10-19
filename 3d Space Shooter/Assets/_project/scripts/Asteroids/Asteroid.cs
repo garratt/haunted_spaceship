@@ -24,17 +24,6 @@ public class Asteroid : MonoBehaviour, IDamagable
         if (_explosionPrefab != null) {
             Instantiate(_explosionPrefab, hitposition, Quaternion.identity);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(gameObject);
     }
 }
