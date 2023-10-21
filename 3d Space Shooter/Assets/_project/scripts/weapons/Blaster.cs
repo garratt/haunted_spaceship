@@ -28,6 +28,7 @@ public class Blaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
         
     }
 
@@ -46,7 +47,6 @@ public class Blaster : MonoBehaviour
 
     void Awake()
     {
-        _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
     }
 
     public void FireProjectile() 
