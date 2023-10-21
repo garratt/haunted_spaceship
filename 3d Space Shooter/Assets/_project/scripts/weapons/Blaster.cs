@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+//using Sirenix.OdinInspector;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Blaster : MonoBehaviour
 {
-    [SerializeField] [Required] Projectile _projectilePrefab;
+    [SerializeField] Projectile _projectilePrefab;
+    [SerializeField] AudioClip _fireSound;
     [SerializeField] Transform _muzzle;
     [SerializeField] [Range(0f, 5f)] float _coolDownTime = .25f;
 
@@ -20,6 +22,8 @@ public class Blaster : MonoBehaviour
     }
 
     float _coolDown;
+
+    AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +44,21 @@ public class Blaster : MonoBehaviour
         
     }
 
+    void Awake()
+    {
+        _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
+    }
+
     public void FireProjectile() 
     {
         if (_coolDown > 0) {
             return;
         }
         _coolDown = _coolDownTime;
+        if (_fireSound)
+        {
+            _audioSource.PlayOneShot(_fireSound);
+        }
         Instantiate(_projectilePrefab, _muzzle.position, transform.rotation);
     }
 

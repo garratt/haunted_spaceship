@@ -7,14 +7,24 @@ using Codice.Client.BaseCommands;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    
     bool ShouldQuitGame => Input.GetKeyUp(KeyCode.Escape);
-    // private SerialController serialController; 
-    // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
     void Start()
     {
      Cursor.lockState = CursorLockMode.Confined;
      Cursor.visible = false;        
-    //  serialController = GetComponent<SerialController>();
     }
 
     // Update is called once per frame
@@ -30,6 +40,17 @@ public class GameManager : MonoBehaviour
             ShouldGame();
         }
         
+    }
+
+        public void InRedAlert(bool inRedAlert)
+    {
+        if (inRedAlert)
+        {
+            MusicManager.Instance.PlayRedAlert();
+            return;
+        }
+
+        MusicManager.Instance.PlayPatrolMusic();
     }
 
     // void OnMessageArrived(string msg) {

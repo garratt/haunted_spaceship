@@ -32,9 +32,10 @@ public class GSerialManager : MonoBehaviour
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
-    public GameObject messageListener;
-    TurretHandler _TurretHandler => GetComponent<TurretHandler>();
-
+    // public GameObject messageListener;
+    // TurretHandler _TurretHandler => GetComponent<TurretHandler>();
+    AbstractHandlerBase[] _Handlers => GetComponents<AbstractHandlerBase>();
+    
 
     // Constants used to mark the start and end of a connection. There is no
     // way you can generate clashing messages from your serial device, as I
@@ -107,14 +108,30 @@ public class GSerialManager : MonoBehaviour
         }
     }
 
+    // There are Several Arduinos we connect to:
+    // Board function:
+    // Turret Gun                   TURR
+    // Navigation controls          NAVC  
+    // Adult Control                ADLT    
     void ParseMessage(string message, GSerialThread ser) {
         Debug.Log("Arrived: " + message);
-        string[] fields = message.Split(',');
-        // First field is the id, second is the message type
-        if (fields[0] == "A1") {
-            ser.board_function = BoardFunction.Elights;
-            _TurretHandler.ParseTurretMessage(message);
+        foreach (var handler in _Handlers) {
+            if (handler.ParseMessage(message)) {
+                return;
+            }
         }
+        // string[] fields = message.Split(',');
+        // // First field is the id, second is the message type
+        // if (fields[0] == "TURR") {
+        //     ser.board_function = BoardFunction.Elights;
+        //     _TurretHandler.ParseTurretMessage(message);
+        // }
+        // switch (fields[0]) {
+        //     case "TURR":
+        //         _TurretHandler.ParseTurretMessage(message);
+        //     break;
+
+        // };
     }
 
     // ------------------------------------------------------------------------
