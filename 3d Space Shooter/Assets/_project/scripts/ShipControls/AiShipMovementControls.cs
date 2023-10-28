@@ -45,7 +45,7 @@ public class AiShipMovementControls : MovementControlsBase
 
         _distanceToTarget = DistanceToTarget;
         _localDirection = Quaternion.Inverse(_transform.rotation) * (_target.position - _transform.position);
-       // CheckCollisionAvoidance();
+        CheckCollisionAvoidance();
         _yawAmount = GetYawAmount();
         _pitchAmount = GetPitchAmount();
         _rollAmount = GetRollAmount();
@@ -56,7 +56,7 @@ public class AiShipMovementControls : MovementControlsBase
     {
         if (!_target || !_enableYaw) return 0f;
         if (!Mathf.Approximately(0f, _horizontalAvoidance)) return _horizontalAvoidance;
-        _yaw = Mathf.Atan2(_localDirection.x, _localDirection.z) * Mathf.Rad2Deg;
+        _yaw = Mathf.Atan2(_localDirection.x, _localDirection.z) * Mathf.Rad2Deg + 45 * _horizontalAvoidance;
         if (Mathf.Approximately(0, _yaw)) return 0f;
         return _yawPidController.Update(Time.deltaTime, _yaw, 0f) * -1f;
     }
@@ -64,8 +64,8 @@ public class AiShipMovementControls : MovementControlsBase
     float GetPitchAmount()
     {
         if (!_target || !_enablePitch) return 0f;
-        if (!Mathf.Approximately(0f, _verticalAvoidance)) return _verticalAvoidance;
-        _pitch = Vector3.Angle(Vector3.down, _localDirection) - 90f;
+       if (!Mathf.Approximately(0f, _verticalAvoidance)) return _verticalAvoidance;
+        _pitch = Vector3.Angle(Vector3.down, _localDirection) + _verticalAvoidance * 45 - 90f;
         return _pitchPidController.Update(Time.deltaTime, _pitch, 0f);
     }
 

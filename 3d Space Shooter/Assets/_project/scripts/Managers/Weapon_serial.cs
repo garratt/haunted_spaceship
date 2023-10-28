@@ -6,18 +6,24 @@ public class Weapon_serial : MonoBehaviour
 {
     [SerializeField] Transform _turret1;
     [SerializeField] TurretHandler _turretHandler;
+    [SerializeField] MissileHandler _missileHandler;
 
 
     // private TurretHandler _turretHandler;
     private Blaster blaster1;
+    private MissileLauncher ml1, ml2;
     void Start()
     {
     //  _turretHandler = GameObject.Find("SerialManager").GetComponent<TurretHandler>();
      blaster1 = GameObject.Find("Canon").GetComponent<Blaster>();
+     ml1 = GameObject.Find("Big_Launcher1").GetComponent<MissileLauncher>();
+     ml2 = GameObject.Find("Big_Launcher2").GetComponent<MissileLauncher>();
     }
     void OnEnable()
     {
         _turretHandler.TurretFired.AddListener(OnTurretFired);
+        _missileHandler.MissileFired.AddListener(OnMissileFired);
+        // _missileHandler.Missile2Fired.AddListener(OnMissile2Fired);
     }
 
     void OnDisable()
@@ -31,6 +37,10 @@ public class Weapon_serial : MonoBehaviour
 
         blaster1.FireProjectile();
     }
+    void OnMissileFired() {
+        ml1.FireMissile();
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -5,20 +5,24 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
-
+ [SerializeField] AudioClip _alertSound;
+    
     [SerializeField]
     protected MovementControlsBase _movementControls;
 
     [SerializeField]
     protected WeaponControlsBase _weaponControls;   
+         [SerializeField] GameObject _asteroidPrefab;
+     [SerializeField] float _astroid_distance;
 
     [SerializeField]
     ShipDataSo _shipData;
 
     [SerializeField]
     List<Blaster> _blasters;
+    AudioSource _audioSource;
     
-    // [SerializeField] protected List<MissileLauncher> _missileLaunchers;
+    [SerializeField] protected List<MissileLauncher> _missileLaunchers;
 
     Rigidbody _rigidBody;
     [Range(-1.0f,1.0f)]
@@ -28,8 +32,14 @@ public class ShipController : MonoBehaviour
     IWeaponControls WeaponInput => _weaponControls;
 
     void Start() {
+                _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
+
         foreach (Blaster blaster in _blasters) {
             blaster.Init(WeaponInput);
+        }
+        foreach (MissileLauncher launcher in _missileLaunchers)
+        {
+            launcher.Init(WeaponInput);
         }
     }
 
@@ -42,8 +52,22 @@ public class ShipController : MonoBehaviour
         _pitchAmount = MovementInput.PitchAmount;
         _rollAmount = MovementInput.RollAmount;
         _yawAmount = MovementInput.YawAmount;
-    }
 
+    //  if (Input.GetKeyDown(KeyCode.H))
+    //     {
+    //         GameObject asteroid = Instantiate(_asteroidPrefab,
+    //            transform.position + transform.forward * _astroid_distance, Quaternion.identity);
+    //         var aster = asteroid.GetComponent<Asteroid>();
+    //         // asteroid.gameObject.SetActive(true);
+    //         aster.Init(transform);
+
+    //     }
+    }
+    void OnCollisionEnter(Collision other)
+    {
+        if (_alertSound) _audioSource.PlayOneShot(_alertSound);
+
+    }
     void FixedUpdate() {
                 if (!Mathf.Approximately(0f, _pitchAmount))
         {

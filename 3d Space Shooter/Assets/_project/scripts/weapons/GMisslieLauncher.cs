@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Blaster : MonoBehaviour
+public class GMisslieLauncher : MonoBehaviour
 {
      [SerializeField] GameObject _missilePrefab;
-    [SerializeField] Projectile _projectilePrefab;
     [SerializeField] AudioClip _fireSound;
     [SerializeField] Transform _muzzle;
-    [SerializeField] [Range(0f, 5f)] float _coolDownTime = .25f;
+    [SerializeField] [Range(0f, 5f)] float _coolDownTime = 1.5f;
 
     Transform _transform, _target;
     private IWeaponControls _weaponInput;
@@ -40,9 +39,9 @@ public class Blaster : MonoBehaviour
         if (_coolDown > 0 ) {
             _coolDown -= Time.deltaTime;
         }
-        if (_weaponInput != null && _weaponInput.PrimaryFired)
+        if (_weaponInput != null && _weaponInput.SecondaryFired)
         {
-            FireProjectile();
+            FireMissile();
         }
         // if (_weaponInput != null && _weaponInput is {SecondaryFired: true})
         // {
@@ -57,7 +56,7 @@ public class Blaster : MonoBehaviour
         _transform = transform;
     }
 
-    public void FireProjectile() 
+    public void FireMissile() 
     {
         if (_coolDown > 0) {
             return;
@@ -67,13 +66,6 @@ public class Blaster : MonoBehaviour
         {
             _audioSource.PlayOneShot(_fireSound);
         }
-        Instantiate(_projectilePrefab, _muzzle.position, transform.rotation);
-    }
-
-
-    void FireMissile()
-    {
-                // if (_launchSound) _audioSource.PlayOneShot(_launchSound);
         var missile = Instantiate(_missilePrefab, _transform.position, _transform.rotation).GetComponent<Missile>();
         // if (_radarScreen)
         // {
@@ -83,6 +75,7 @@ public class Blaster : MonoBehaviour
         missile.gameObject.SetActive(true);
                 Debug.Log($"Launched Missle");
     }
+
 
     internal void Init(IWeaponControls weaponInput)
     {

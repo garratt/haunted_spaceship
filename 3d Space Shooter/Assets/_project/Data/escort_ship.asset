@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1088880beb7fda6929382932b5745d15, type: 3}
   m_Name: escort_ship
   m_EditorClassIdentifier: 
-  _thrustForce: 7500
-  _pitchForce: 6000
+  _thrustForce: 3451
+  _pitchForce: 3018
   _rollForce: 1000
   _yawForce: 2000
   _shieldStrength: 5000

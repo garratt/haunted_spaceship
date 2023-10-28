@@ -12,8 +12,8 @@ public class CollisionAvoidance : MonoBehaviour
 
     public bool OnCollisionCourse => VerticalAvoidance != NoAvoidance || HorizontalAvoidance != NoAvoidance;
     
-    public int VerticalAvoidance { get; private set; }
-    public int HorizontalAvoidance { get; private set; }
+    public float VerticalAvoidance { get; private set; }
+    public float HorizontalAvoidance { get; private set; }
 
     Transform _transform;
 
@@ -26,7 +26,7 @@ public class CollisionAvoidance : MonoBehaviour
 
     void OnEnable()
     {
-        VerticalAvoidance = HorizontalAvoidance = NoAvoidance;
+        VerticalAvoidance = HorizontalAvoidance = 0f; //NoAvoidance;
     }
 
     void Update()
@@ -51,30 +51,38 @@ public class CollisionAvoidance : MonoBehaviour
         }
     }
 
-    int GetVerticalAvoidance()
+    float GetVerticalAvoidance()
     {
         if (Physics.SphereCast(_topProbe.position, 2f, _topProbe.forward, out var hit, _detectionRange, _layerMask))
         {
             _verticalCollision = $"{_topProbe.name} detected {hit.collider.name}";
-            return AvoidDown;
+
+            Debug.Log($"{_topProbe.name} detected {hit.collider.name} at distance {hit.distance}");
+            return 10f/(hit.distance + 1f);
+            // return AvoidDown;
         }
 
         if (Physics.SphereCast(_bottomProbe.position, 2f, _bottomProbe.forward, out hit, _detectionRange, _layerMask))
         {
             _verticalCollision = $"{_bottomProbe.name} detected {hit.collider.name}";
-            return AvoidUp;
+            Debug.Log($"{_bottomProbe.name} detected {hit.collider.name} at distance {hit.distance}");
+            return -10f/(hit.distance + 1f);
+            // return AvoidUp;
         }
-        return NoAvoidance;
+        return 0f; //NoAvoidance;
     }
 
-    int GetHorizontalAvoidance()
+    float GetHorizontalAvoidance()
     {
         foreach (var leftProbe in _leftProbes)
         {
             if (Physics.Raycast(leftProbe.position, leftProbe.forward, out var hit, _detectionRange, _layerMask))
             {
                 _horizontalCollision = $"{leftProbe.name} detected {hit.collider.name}";
-                return AvoidRight;
+                Debug.Log($"{leftProbe.name} detected {hit.collider.name} at distance {hit.distance}");
+
+                return 10f/(hit.distance + 1f);
+//            return AvoidRight;
             }
         }
         foreach (var rightProbe in _rightProbes)
@@ -82,10 +90,13 @@ public class CollisionAvoidance : MonoBehaviour
             if (Physics.Raycast(rightProbe.position, rightProbe.forward, out var hit, _detectionRange, _layerMask))
             {
                 _horizontalCollision = $"{rightProbe.name} detected {hit.collider.name}";
-                return AvoidLeft;
+                Debug.Log($"{rightProbe.name} detected {hit.collider.name} at distance {hit.distance}");
+
+                return -10f/(hit.distance + 1f);
+    //            return AvoidLeft;
             }
         }
-        return NoAvoidance;
+        return 0f; //NoAvoidance;
         
     }
 }

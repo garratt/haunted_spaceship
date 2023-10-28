@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
 using Codice.Client.BaseCommands;
+using Sirenix.Utilities;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+     [SerializeField] GameObject _asteroidPrefab;
+     [SerializeField] float _astroid_distance;
     
+    [SerializeField] Transform _target;
     bool ShouldQuitGame => Input.GetKeyUp(KeyCode.Escape);
 
     void Awake()
@@ -38,6 +42,17 @@ public class GameManager : MonoBehaviour
     //  }
         if(ShouldQuitGame) {
             ShouldGame();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            InRedAlert(true);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            var asteroid = Instantiate(_asteroidPrefab,
+               _target.position + _target.forward * _astroid_distance, Quaternion.identity).GetComponent<Asteroid>();
+            asteroid.Init(_target);
+
         }
         
     }
