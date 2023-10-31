@@ -23,7 +23,7 @@ public class Weapon_serial : MonoBehaviour
     {
         _turretHandler.TurretFired.AddListener(OnTurretFired);
         _missileHandler.MissileFired.AddListener(OnMissileFired);
-        // _missileHandler.Missile2Fired.AddListener(OnMissile2Fired);
+        _missileHandler.Missile2Fired.AddListener(OnMissile2Fired);
     }
 
     void OnDisable()
@@ -40,11 +40,14 @@ public class Weapon_serial : MonoBehaviour
     void OnMissileFired() {
         ml1.FireMissile();
     }
+    void OnMissile2Fired() {
+        ml2.FireMissile();
+    }
 
     // Update is called once per frame
     void Update()
     {
-     _turret1.localRotation = Quaternion.Euler(0, _turretHandler.TurretAngle, 0);
+    //  _turret1.localRotation = Quaternion.Euler(0, _turretHandler.TurretAngle, 0);
     }
 
 }

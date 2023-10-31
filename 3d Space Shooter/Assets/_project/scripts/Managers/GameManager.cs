@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
-using Codice.Client.BaseCommands;
+//using Codice.Client.BaseCommands;
 using Sirenix.Utilities;
 
 public class GameManager : MonoBehaviour
@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour
     //         Debug.Log($"Found port {port}");
     //     }
     //  }
+    for(int i=0; i<20; ++i) {
+        if(Input.GetKeyDown("joystick button " + i)) {
+            Debug.Log("Button " + i);
+        }
+    }
         if(ShouldQuitGame) {
             ShouldGame();
         }
