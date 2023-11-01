@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: escort_ship
   m_EditorClassIdentifier: 
   _thrustForce: 3451
-  _pitchForce: 3018
+  _pitchForce: 1000
   _rollForce: 1000
-  _yawForce: 2000
+  _yawForce: 1000
   _shieldStrength: 5000
   _shieldRegenAmount: 100
   _maxHealth: 5000

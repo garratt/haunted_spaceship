@@ -40,11 +40,11 @@ public class GameManager : MonoBehaviour
     //         Debug.Log($"Found port {port}");
     //     }
     //  }
-    for(int i=0; i<20; ++i) {
-        if(Input.GetKeyDown("joystick button " + i)) {
-            Debug.Log("Button " + i);
-        }
-    }
+    // for(int i=0; i<20; ++i) {
+    //     if(Input.GetKeyDown("joystick button " + i)) {
+    //         Debug.Log("Button " + i);
+    //     }
+    // }
         if(ShouldQuitGame) {
             ShouldGame();
         }
@@ -52,13 +52,13 @@ public class GameManager : MonoBehaviour
         {
             InRedAlert(true);
         }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            var asteroid = Instantiate(_asteroidPrefab,
-               _target.position + _target.forward * _astroid_distance, Quaternion.identity).GetComponent<Asteroid>();
-            asteroid.Init(_target);
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     var asteroid = Instantiate(_asteroidPrefab,
+        //        _target.position + _target.forward * _astroid_distance, Quaternion.identity).GetComponent<Asteroid>();
+        //     asteroid.Init(_target);
 
-        }
+        // }
         
     }
 

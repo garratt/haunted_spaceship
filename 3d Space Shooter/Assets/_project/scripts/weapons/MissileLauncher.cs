@@ -82,6 +82,7 @@ public class MissileLauncher : MonoBehaviour
 
     public void FireMissile()
     {
+        if (!CanFire) return;
                 Debug.Log($"Launched Missle");
 
         if (_launchSound) _audioSource.PlayOneShot(_launchSound);

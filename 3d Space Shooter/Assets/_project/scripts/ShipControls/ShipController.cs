@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,6 +17,7 @@ public class ShipController : MonoBehaviour
          [SerializeField] GameObject _asteroidPrefab;
      [SerializeField] float _astroid_distance;
 
+    [SerializeField] float _game_boundary = 500f;
     [SerializeField]
     ShipDataSo _shipData;
 
@@ -27,12 +30,11 @@ public class ShipController : MonoBehaviour
     Rigidbody _rigidBody;
     [Range(-1.0f,1.0f)]
     float _thrustAmount, _pitchAmount, _yawAmount, _rollAmount;
-    
     ImovementControls MovementInput => _movementControls;
     IWeaponControls WeaponInput => _weaponControls;
 
     void Start() {
-                _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
+        _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
 
         foreach (Blaster blaster in _blasters) {
             blaster.Init(WeaponInput);
@@ -41,6 +43,7 @@ public class ShipController : MonoBehaviour
         {
             launcher.Init(WeaponInput);
         }
+
     }
 
     void Awake() {
@@ -52,6 +55,7 @@ public class ShipController : MonoBehaviour
         _pitchAmount = MovementInput.PitchAmount;
         _rollAmount = MovementInput.RollAmount;
         _yawAmount = MovementInput.YawAmount;
+
 
     //  if (Input.GetKeyDown(KeyCode.H))
     //     {
@@ -86,6 +90,18 @@ public class ShipController : MonoBehaviour
         if(!Mathf.Approximately(0f, _thrustAmount)) {
             _rigidBody.AddForce(transform.forward * (_thrustAmount * _shipData.ThrustForce * Time.fixedDeltaTime));
         }       
+
+        if (Math.Abs(transform.position.x) > _game_boundary || Math.Abs(transform.position.y) > _game_boundary || Math.Abs(transform.position.z) >_game_boundary) {
+            var temp_position = transform.position;
+            if(transform.position.x > _game_boundary) temp_position.x -= _game_boundary*2f;
+            if(transform.position.x < -_game_boundary) temp_position.x += _game_boundary*2f;
+            if(transform.position.y > _game_boundary) temp_position.y -= _game_boundary*2f;
+            if(transform.position.y < -_game_boundary) temp_position.y += _game_boundary*2f;
+            if(transform.position.z > _game_boundary) temp_position.z -= _game_boundary*2f;
+            if(transform.position.z < -_game_boundary) temp_position.z += _game_boundary*2f;
+            _rigidBody.position = temp_position;
+        }
+        
     }
 
 

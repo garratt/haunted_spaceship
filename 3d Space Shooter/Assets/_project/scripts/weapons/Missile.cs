@@ -40,7 +40,7 @@ public class Missile : MonoBehaviour
         _audioSource = SoundManager.Configure3DAudioSource(GetComponent<AudioSource>());
     }
 
-    public void Init(Transform target)
+    public void SetTarget(Transform target)
     {
         _target = target;
     }
